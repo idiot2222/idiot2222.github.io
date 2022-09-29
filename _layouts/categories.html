@@ -18,7 +18,7 @@ layout: page
   {% assign first_post = posts_of_category | first %}
 
   <!--여기다-->
-  {% if first_post.isBook != true %}
+  {% if first_post.isBook != true and first_post.isLecture != true %}
 
   {% if category_name == first_post.categories[0] %}
     {% assign sub_categories = "" | split: "" %}
