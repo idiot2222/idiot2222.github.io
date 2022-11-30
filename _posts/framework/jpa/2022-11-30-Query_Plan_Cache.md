@@ -20,7 +20,7 @@ tags: [jpa, hibernate, orm, query plan cache, parameter binding]
 # Query Plan Cache
 
 - Hibernate가 SQL을 작성할 수 있도록, JPQL과 Criteria의 쿼리들은 실행 전에 모두 Abstract Syntax Tree로 파싱된다.
-  - [Abstract Syntax Tree란?](/posts/Abstract_Syntax_Tree)
+  - [Abstract Syntax Tree란?](https://ko.wikipedia.org/wiki/추상_구문_트리)
   - 쿼리 컴파일에는 시간이 걸리므로, Hibernate는 Query Plan Cache로 성능을 보완한다.
 - 네이티브 쿼리의 경우,
   - Hibernate는 named parameter와 쿼리 반환 타입에 대한 정보를 추출하여 ParameterMetadata에 저장한다.
