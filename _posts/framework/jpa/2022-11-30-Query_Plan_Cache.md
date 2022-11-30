@@ -1,6 +1,6 @@
 ---
 title: Query Plan Cache
-date: 2022-11-29 11:00:00 +0900
+date: 2022-11-29 23:00:00 +0900
 categories: [Framework, JPA]
 tags: [jpa, hibernate, orm, query plan cache, parameter binding]
 ---
