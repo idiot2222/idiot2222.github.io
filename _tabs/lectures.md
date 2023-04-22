@@ -1,6 +1,6 @@
 ---
 layout: lectures
 title: Lectures
-icon: fas fa-info-circle
+icon: fas fa-university
 order: 4
 ---
