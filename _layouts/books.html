@@ -87,6 +87,7 @@ layout: page
                     <i class="far fa-file fa-fw"></i>
                   {% assign title = sub_category | split: ',' | last %}
                   {% capture _sub_ctg_url %}/posts/{{ title | url_encode }}/{% endcapture %}
+                  {% assign title = title | replace: '_', ' ' %}
                   <a href="{{ _sub_ctg_url | relative_url }}" class="ml-1 mr-2">{{ title }}</a>
                 </li>
                 {% endfor %}
