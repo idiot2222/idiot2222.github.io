@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.2.2" /><meta property="og:title" content="연관 관계 기초" /><meta property="og:locale" content="en" /><meta name="description" content="Bogeun’s blog for studying development. c java spring jpa computer science architecture network database operating system" /><meta property="og:description" content="Bogeun’s blog for studying development. c java spring jpa computer science architecture network database operating system" /><link rel="canonical" href="https://idiot2222.github.io/posts/%EC%97%B0%EA%B4%80_%EA%B4%80%EA%B3%84_%EA%B8%B0%EC%B4%88/" /><meta property="og:url" content="https://idiot2222.github.io/posts/%EC%97%B0%EA%B4%80_%EA%B4%80%EA%B3%84_%EA%B8%B0%EC%B4%88/" /><meta property="og:site_name" content="Bogeun" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-11-07T12:30:00+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="연관 관계 기초" /><meta name="twitter:site" content="@twitter_username" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-11-07T12:30:00+09:00","datePublished":"2022-11-07T12:30:00+09:00","description":"Bogeun’s blog for studying development. c java spring jpa computer science architecture network database operating system","headline":"연관 관계 기초","mainEntityOfPage":{"@type":"WebPage","@id":"https://idiot2222.github.io/posts/%EC%97%B0%EA%B4%80_%EA%B4%80%EA%B3%84_%EA%B8%B0%EC%B4%88/"},"url":"https://idiot2222.github.io/posts/%EC%97%B0%EA%B4%80_%EA%B4%80%EA%B3%84_%EA%B8%B0%EC%B4%88/"}</script><title>연관 관계 기초 | Bogeun</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Bogeun"><meta name="application-name" content="Bogeun"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/main/stadium.jpg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">Bogeun</a></div><div class="site-subtitle font-italic">보근의 공부 블로그</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/books/" class="nav-link"> <i class="fa-fw fas fa-book ml-xl-3 mr-xl-3 unloaded"></i> <span>BOOKS</span> </a><li class="nav-item"> <a href="/lectures/" class="nav-link"> <i class="fa-fw fas fa-university ml-xl-3 mr-xl-3 unloaded"></i> <span>LECTURES</span> </a><li class="nav-item"> <a href="/study/" class="nav-link"> <i class="fa-fw far fa-school fa-fw ml-xl-3 mr-xl-3 unloaded"></i> <span>STUDY</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/idiot2222" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['pky2892','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>연관 관계 기초</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>연관 관계 기초</h1><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1685731179796135" crossorigin="anonymous"></script><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1667791800" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Nov 7, 2022 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/username">idiot2222</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2956 words"> <em>16 min</em> read</span></div></div></div><div class="post-content"><p><br /> <br /> <br /> <br /></p><h3 id="참고"><span class="mr-2">참고</span><a href="#참고" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><ul><li><a href="https://www.inflearn.com/course/ORM-JPA-Basic/dashboard">자바 ORM 표준 JPA 프로그래밍 - 김영한</a></ul><p><br /> <br /></p><h1 id="jpa-연관-관계-매핑">JPA 연관 관계 매핑</h1><ul><li><p>JPA에서의 테이블 연관 관계 매핑에 대해 알아본다.</p><li><p>고려할 것은 세 가지가 있다.</p><ul><li>방향<ul><li>단방향, 양방향</ul><li>연관 관계 주인<ul><li>양방향 연관 관계에서 관리 주체</ul><li>다중성<ul><li>일대일(1:1), 일대다(1:N), 다대일(N:1), 다대다(N:M)</ul></ul></ul><h1 id="단방향-양방향">단방향, 양방향</h1><p>(이미지)</p><ul><li>DB 테이블은 방향의 개념이 없다.<ul><li>항상 JPA 엔티티의 양방향과 같다.<li>하나의 외래키로 양쪽 테이블에서 조인이 가능하다.</ul><li>JPA는 연관 관계를 엔티티 객체끼리의 참조로 구현하기 때문에 단방향, 양방향의 개념이 있다.<ul><li>하나의 엔티티 객체만이 다른 엔티티 객체를 참조하는 경우가 단방향<li>양쪽 엔티티 객체가 서로 참조하는 경우가 양방향이다.</ul></ul><p><br /> <br /></p><h2 id="단방향"><span class="mr-2">단방향</span><a href="#단방향" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>단방향은 단순하게 하나의 엔티티에서 다른 엔티티를 멤버 필드로 참조하는 경우이다.<ul><li>@OneToOne, @OneToMany, @ManyToOne, @ManyToMany 어노테이션을 사용한다.</ul><li>당연하게도 참조하는 테이블에서 외래키를 관리한다.<ul><li>참조하는 쪽의 테이블에서 참조되는 테이블의 id 값을 외래키로 갖는다.</ul><li>역시 당연하게 참조하는 객체만이 참조되는 객체를 조회할 수 있다.</ul><p><br /> <br /></p><ul><li>책 정보를 갖는 Book 엔티티와 책장 정보를 갖는 Bookshelf 엔티티가 있다고 할 때,</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></table></code></div></div><p>이처럼 단방향 연관 관계 매핑을 할 수 있다.</p><p><br /> <br /></p><h2 id="양방향"><span class="mr-2">양방향</span><a href="#양방향" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>양방향은 양쪽 엔티티 객체가 서로를 참조하는 경우이다.<ul><li>단방향과 달리 양쪽 객체가 서로를 조회할 수 있다.</ul><li>그럼 무조건 양방향으로 하면 편한 거 아님?<ul><li>당장은 편하겠지만, 나중에 프로젝트가 커질 수록 복잡도가 점점 증가하게 된다.<li>불필요한 연관 관계를 늘려 복잡도를 올리는 것 보다는 당장 필요하다고 느끼는 단방향 연관 관계를 맺어 두고,<li>개발 중에 양방향의 필요성을 느끼면 그때 양방향으로 매핑하는 것이 좋다고 한다.</ul></ul><p><br /> <br /></p><ul><li>책 정보를 갖는 Book 엔티티와 책장 정보를 갖는 Bookshelf 엔티티가 있다고 할 때,</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="nd">@OneToMany</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">bookList</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></table></code></div></div><ul><li>위의 경우는 양방향 매핑이 아니라 단방향 매핑이 두 개라고 해야한다.<li>양방향 연관 관계 매핑을 위해서는 둘 중 하나에게 연관 관계의 주인을 지정해줘야 한다.</ul><p><br /> <br /> <br /> <br /></p><h1 id="연관-관계-주인">연관 관계 주인</h1><ul><li>연관 관계의 주인이라는 것은<ul><li>외래키를 관리하며,<li>삽입, 수정, 삭제 등의 제어 권한을 갖는다.<li>반대로 연관 관계의 주인이 아닌 애는 조회만 가능하다.</ul><li>연관 관계 주인은 어떻게 설정하나<ul><li>연관 관계 어노테이션에 mappedBy 속성을 통해 설정할 수 있다.<li>mappedBy가 붙지 않은 쪽이 연관 관계의 주인이다.<li>mappedBy가 붙은 애는 연관 관계의 주인인 테이블이 본인을 어떤 변수명으로 나타내는지 적어줘야 한다.</ul></ul><p><br /> <br /></p><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"bookshelf"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">bookList</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></table></code></div></div><ul><li>위의 경우에 Book이 연관 관계의 주인이라고 할 수 있다.<ul><li>연관 관계의 주인인 Book은 Bookshelf를 bookshelf라는 변수명으로 두었다.<ul><li>Bookshelf는 mappedBy 속성으로 “bookshelf”를 줘야한다.</ul></ul></ul><p><br /> <br /></p><h2 id="그럼-누구를-연관-관계의-주인으로-설정해야-하는가"><span class="mr-2">그럼 누구를 연관 관계의 주인으로 설정해야 하는가?</span><a href="#그럼-누구를-연관-관계의-주인으로-설정해야-하는가" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>이것은 DB에서 외래키를 관리하는 쪽이 누구인가를 생각하면 된다.<li>보통 다대일 관계에서 ‘다’쪽이 외래키를 관리한다.<li>JPA에서도 같은 맥락으로 생각하여 연관 관계 주인을 정해주면 가장 자연스럽다.</ul><p><br /> <br /></p><h2 id="주의점"><span class="mr-2">주의점</span><a href="#주의점" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>DB에서는 실제로 양방향 연결이기 때문에 한 쪽에서 수정이 이뤄지면 된다.<li><p>하지만 JPA의 엔티티는 객체이기 때문에 문제가 발생할 수 있다.</p><li>Book-Bookshelf 예제를 계속 사용해보면<ul><li>book.setBookshelf(bookshelf);<ul><li>Book이 연관 관계의 주인이기 때문에 테이블에 외래키로 bookshelf의 아이디가 잘 들어간다.<li>그러나 bookshelf에는 book이 add되지 않았으므로 코드 레벨에서 데이터 동기화가 발생한다.</ul><li>bookshelf.getBookList().add(book);<ul><li>bookshelf는 연관 관계의 주인이 아니기 때문에 db에 연관 관계가 저장되지 안흔ㄴ다.<li>book에는 bookshelf가 set되지 않으므로 코드 레벨에서 데이터 동기화가 발생한다.</ul></ul></ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre><td class="rouge-code"><pre><span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBookshelf</span><span class="o">(</span><span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">bookshelf</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bookshelf</span> <span class="o">=</span> <span class="n">bookshelf</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Entity</span>
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+    <span class="c1">// id 등 생략</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addBook</span><span class="o">(</span><span class="nc">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bookList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+        <span class="n">book</span><span class="o">.</span><span class="na">setBookshelf</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></table></code></div></div><ul><li>위와 같이 메서드를 정의해서 사용한다면 문제 생길 일이 없다.<ul><li>이런 편의 메서드도 한 쪽에만 만들어두는게 좋다고 한다.</ul><li>또 양방향 매핑 시에 무한 루프를 조심해야 한다.<ul><li>toString(), lombok, JSON 생성 라이브러리<li>예를 들어,<ul><li>양방향 연관 관계를 가지는 book과 bookshelf에서 lombok의 @toString으로 toString()을 자동 생성하고,<li>book.toString()을 호출하면 bookshelf.toString()이 호출되고<li>bookshelf.toString()을 호출하면 book.toString()이 호출되기 때문에<li>조심해야 한다. 이거 생각보다 자주 있음.</ul></ul></ul><p><br /> <br /> <br /> <br /></p><h1 id="다중성">다중성</h1><ul><li>엔티티의 다중성을 결정할 때 헷갈리면 반대쪽을 생각하여 결정하면 된다.<ul><li>서로 대비되기 때문에<li>다대일 &lt;-&gt; 일대다<li>일대일 &lt;-&gt; 일대일<li>다대다 &lt;-&gt; 다대다</ul></ul><p><br /> <br /></p><h2 id="다대일"><span class="mr-2">다대일</span><a href="#다대일" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>다대일 단방향 매핑</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>
+<span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="c1">// 생략</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bookshelf_id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+    <span class="c1">// 생략</span>
+<span class="o">}</span>
+
+</pre></table></code></div></div><ul><li>가장 많이 쓰이는 연관 관계 매핑이다.<li>DB에서 외래키 관리하는 방식과 유사하다.<ul><li>DB는 ‘다’쪽 테이블이 외래키를 갖고 관리한다.</ul><li>위의 예시에서는 Book이 Bookshelf의 아이디를 갖고 관리한다.</ul><p><br /> <br /></p><ul><li>다대일 양방향 매핑</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="c1">// 생략</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bookshelf_id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+    <span class="c1">// 생략</span>
+
+    <span class="nd">@OneToMany</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"bookshelf"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">bookList</span><span class="o">;</span>
+<span class="o">}</span>
+
+</pre></table></code></div></div><ul><li>bookshelf에도 연관 관계 매핑을 해주고<li>mappedBy로 연관 관계의 주인이 Book 엔티티임을 나타내준다.<ul><li>이걸 하지 않으면 양방향이라고 할 수 없다.</ul></ul><p><br /> <br /></p><h2 id="일대다"><span class="mr-2">일대다</span><a href="#일대다" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>일대다 단방향 매핑</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+  <span class="c1">// 생략</span>
+
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+  <span class="c1">// 생략</span>
+
+    <span class="nd">@OneToMany</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bookshelf_id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">bookList</span><span class="o">;</span>
+<span class="o">}</span>
+
+</pre></table></code></div></div><ul><li>‘일’쪽에서 연관 관계를 관리한다.<ul><li>DB에는 ‘다’쪽에 외래키가 존재한다.<li>자연스러운 흐름과 반대되는 방식이다.</ul><li>@JoinColumn을 넣어주지 않으면 중간 테이블이 추가된다.<ul><li>Book_Bookshelf 이런 이름으로 연관 관계가 맺어진 row의 아이디만 가지는 테이블이다.<li>@JoinTable로 이 테이블을 설정해줄 수도 있다.</ul><li>추천하지 않는 방식이다.<ul><li>먼저 Book이 연관 관계를 관리하는 다대일 단방향 매핑을 예로 들면,<ol><li>새로 bookshelf를 만들었다.</ol><ul><li>Bookshelf 테이블에 insert<ol><li>새로 book을 만들었고, book은 bookshelf를 참조한다.</ol><li>Book 테이블에 book이 insert<li>book은 외래키로 bookshelf의 아이디를 가진다.</ul><li>다음 Bookshelf가 연관 관계를 관리하는 일대다 단방향을 예로 들면,<ol><li>새로 book을 만들었다.</ol><ul><li>Book 테이블에 insert<ol><li>새로 bookshelf를 만들었고, bookshelf는 book의 참조를 가진다.</ol><li>Bookshelf 테이블에 bookshelf를 insert<li>Book 테이블에 book의 row에 bookshelf 아이디를 추가하는 update</ul><li>이렇게 쿼리가 하나 더 나간다.<li>이런 성능적인 부분 외에도 자연스러운 흐름을 거스르기 때문에 헷갈릴 수 있어서 비추다.</ul></ul><p><br /> <br /></p><ul><li>일대다 양방향 매핑</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+  <span class="c1">// 생략</span>
+
+    <span class="nd">@ManyToOne</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bookshelf_id"</span><span class="o">,</span> <span class="n">insertable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">updatable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Bookshelf</span> <span class="n">bookshelf</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bookshelf</span> <span class="o">{</span>
+  <span class="c1">// 생략</span>
+
+    <span class="nd">@OneToMany</span>
+    <span class="nd">@JoinColumn</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"bookshelf_id"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">bookList</span><span class="o">;</span>
+<span class="o">}</span>
+
+</pre></table></code></div></div><ul><li>JPA 스펙 상으론 일대다 양방향 매핑은 없다고 한다.<li>위의 코드는 그저 살짝 야매로 만든 것이다.<ul><li>연관 관계 주인이 ‘일’이고<li>주인이 아닌 ‘다’는 조회만 가능하다.</ul><li>실무에선 사용하지 않는 것이 좋다고 한다.<ul><li>자연스러운 흐름과 반대되기 때문에 헷갈리고<li>다대일 매핑이라는 좋은 대체재가 있기 때문</ul></ul><p><br /> <br /></p><h2 id="일대일"><span class="mr-2">일대일</span><a href="#일대일" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>일대일의 반대는 당연히 일대일이다.<li>두 테이블 중에 하나 외래키를 주면 된다.<ul><li>두 테이블 중에 주 테이블이라고 여겨지는 곳<li>두 테이블 중에 대상 테이블이라고 여겨지는 곳</ul><li>외래키에 유니크 제약 조건이 추가해야 된다.</ul><p><br /> <br /></p><ul><li>일대일 단방향 매핑</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>
+<span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="nd">@OneToOne</span>
+    <span class="kd">private</span> <span class="nc">Player</span> <span class="n">player</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Player</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+<span class="o">}</span>
+
+</pre></table></code></div></div><ul><li>Account 테이블에 외래키를 준 모양이다.<li>반대로 작성할 수도 있다.</ul><p><br /> <br /></p><ul><li>일대일 양방향 매핑</ul><div class="language-java highlighter-rouge"><div class="code-header"> <span data-label-text="Java"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre>
+<span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="nd">@OneToOne</span>
+    <span class="kd">private</span> <span class="nc">Player</span> <span class="n">player</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Player</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+
+    <span class="nd">@OneToOne</span><span class="o">(</span><span class="n">mappedBy</span> <span class="o">=</span> <span class="s">"player"</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Account</span> <span class="n">account</span><span class="o">;</span>
+<span class="o">}</span>
+
+</pre></table></code></div></div><ul><li>마찬가지로 mappedBy로 연관 관계 주인을 정해줘야한다.<li>어느 쪽을 연관 관계의 주인으로 설정하느냐에 따라 외래키 위치가 달라진다.</ul><p><br /> <br /></p><h2 id="다대다"><span class="mr-2">다대다</span><a href="#다대다" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><ul><li>관계형 DB에서는 정규화된 테이블 두 개로 다대다 관계를 표현할 수 없다.<ul><li>중간에 연결 테이블을 추가해서 일대다 : 다대일 관계로 풀어야 한다.</ul><li>객체는 두 개로 다대다 관계를 표현할 수 있다.<ul><li>각각 컬렉션을 가지면 된다.</ul><li>실무에서 사용되지 않는다고 한다.<ul><li>연결 테이블이 단순 연결 역할만으로 끝나지 않는다.<li>생성 시간 등의 부가적인 정보의 컬럼이 계속 추가될 수 있다.<li>예상치 못한 쿼리가 날아갈 수 있다.</ul><li>다대다 관계는 중간 엔티티를 만들어 일대다 다대일로 풀어내야 한다.<ul><li>여러 리그에 참여할 수 있는 Team과 여러 팀을 가질 수 있는 League가 있을 때<ul><li>Team과 League 사이에 TeamLeague 같은 엔티티를 만든다.<li>그리고 두 엔티티가 각각 일대다로 연관 관계 매핑을 한다.</ul></ul></ul><p><br /> <br /> <br /> <br /></p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='//categories/%EC%9E%90%EB%B0%94-orm-%ED%91%9C%EC%A4%80-jpa/'>자바 ORM 표준 JPA</a>, <a href='//categories/%EC%97%B0%EA%B4%80-%EA%B4%80%EA%B3%84-%EA%B8%B0%EC%B4%88/'>연관_관계_기초</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%EC%97%B0%EA%B4%80+%EA%B4%80%EA%B3%84+%EA%B8%B0%EC%B4%88+-+Bogeun&url=https%3A%2F%2Fidiot2222.github.io%2Fposts%2F%25EC%2597%25B0%25EA%25B4%2580_%25EA%25B4%2580%25EA%25B3%2584_%25EA%25B8%25B0%25EC%25B4%2588%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%EC%97%B0%EA%B4%80+%EA%B4%80%EA%B3%84+%EA%B8%B0%EC%B4%88+-+Bogeun&u=https%3A%2F%2Fidiot2222.github.io%2Fposts%2F%25EC%2597%25B0%25EA%25B4%2580_%25EA%25B4%2580%25EA%25B3%2584_%25EA%25B8%25B0%25EC%25B4%2588%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fidiot2222.github.io%2Fposts%2F%25EC%2597%25B0%25EA%25B4%2580_%25EA%25B4%2580%25EA%25B3%2584_%25EA%25B8%25B0%25EC%25B4%2588%2F&text=%EC%97%B0%EA%B4%80+%EA%B4%80%EA%B3%84+%EA%B8%B0%EC%B4%88+-+Bogeun" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/%EA%B8%B0%EA%B0%95_%EC%9E%90%EB%B0%94-02/">기강 자바-02</a><li><a href="/posts/%EA%B8%B0%EA%B0%95_%EC%9E%90%EB%B0%94-01/">기강 자바-01</a><li><a href="/posts/%EB%B9%84%EB%8F%99%EA%B8%B0_%EC%B2%98%EB%A6%AC/">비동기 처리</a><li><a href="/posts/%EC%8B%B1%EA%B8%80%ED%86%A4_%ED%8C%A8%ED%84%B4/">싱글톤 패턴</a><li><a href="/posts/%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0_%EC%84%A4%EC%A0%95/">시큐리티 설정</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/cs/">cs</a> <a class="post-tag" href="/tags/network/">network</a> <a class="post-tag" href="/tags/java/">java</a> <a class="post-tag" href="/tags/database/">database</a> <a class="post-tag" href="/tags/devops/">devops</a> <a class="post-tag" href="/tags/docker/">docker</a> <a class="post-tag" href="/tags/os/">os</a> <a class="post-tag" href="/tags/security/">security</a> <a class="post-tag" href="/tags/spring-mvc/">spring-mvc</a> <a class="post-tag" href="/tags/spring-security/">spring-security</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/JPA%EB%9E%80/"><div class="card-body"> <em class="small" data-ts="1667658600" data-df="ll" > Nov 5, 2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>JPA란</h3><div class="text-muted small"><p> 참고 자바 ORM 표준 JPA 프로그래밍 - 김영한 What is JPA? orm이란, Object Reation Mapping의 준말로, 객체와 rdb 사이의 괴리감을 줄여준다. 자바 코드로 rdb를 사용한다는 점에서 jdbc, mybatis 등과 같다. 하지만 jdbc, mybatis 등은 sql 쿼리문 작...</p></div></div></a></div><div class="card"> <a href="/posts/%EC%98%81%EC%86%8D%EC%84%B1_%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8/"><div class="card-body"> <em class="small" data-ts="1667662200" data-df="ll" > Nov 6, 2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>영속성 컨텍스트</h3><div class="text-muted small"><p> 참고 자바 ORM 표준 JPA 프로그래밍 - 김영한 Persistence Context jpa의 핵심적인 기능으로, 영속성을 관리해준다. 눈에 보이지 않는 추상적인 개념으로, EntityManager를 통해 영속성 컨텍스트의 기능을 이용할 수 있다. 영속성 컨텍스트를 통해 다음과 같은 이점을 얻을 수 있다. 1차 캐...</p></div></div></a></div><div class="card"> <a href="/posts/%ED%85%8C%EC%9D%B4%EB%B8%94_%EB%A7%A4%ED%95%91/"><div class="card-body"> <em class="small" data-ts="1667705400" data-df="ll" > Nov 6, 2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>테이블 매핑</h3><div class="text-muted small"><p> 참고 자바 ORM 표준 JPA 프로그래밍 - 김영한 엔티티 매핑 JPA에서 엔티티 객체와 테이블을 매핑하는 방법을 설명한다. @Entity 엔티티 객체를 만들 클래스에 필수로 붙어야 하는 애노테이션이다. 그래야만 영속성 컨텍스트의 관리를 받을 수 있다. JPA를 통해 테이블...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="//posts/%ED%85%8C%EC%9D%B4%EB%B8%94_%EB%A7%A4%ED%95%91/" class="btn btn-outline-primary" prompt="Older"><p>테이블 매핑</p></a> <a href="//posts/%EC%97%B0%EA%B4%80_%EA%B4%80%EA%B3%84_%EA%B3%A0%EA%B8%89/" class="btn btn-outline-primary" prompt="Newer"><p>연관 관계 고급</p></a></div></div></div><footer class="row pl-3 pr-3"><div class="col-12 d-flex justify-content-between align-items-center text-muted pl-0 pr-0"><div class="footer-left"><p class="mb-0"> © 2024 <a href="https://github.com/username">idiot2222</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/cs/">cs</a> <a class="post-tag" href="/tags/network/">network</a> <a class="post-tag" href="/tags/java/">java</a> <a class="post-tag" href="/tags/database/">database</a> <a class="post-tag" href="/tags/devops/">devops</a> <a class="post-tag" href="/tags/docker/">docker</a> <a class="post-tag" href="/tags/os/">os</a> <a class="post-tag" href="/tags/security/">security</a> <a class="post-tag" href="/tags/spring-mvc/">spring-mvc</a> <a class="post-tag" href="/tags/spring-security/">spring-security</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a><div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="false"><div class="toast-header"> <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div><div class="toast-body text-center pt-0"><p class="pl-2 pr-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></div><script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script>
